@@ -1,0 +1,17 @@
+<h1>Validation Reports</h1>
+<ul>
+<% @report_list.each do |name, total| %>
+  <li>
+    <% if total > 0 %>
+      <%= link_to name,
+          controller: "validation_reports", 
+          action: "show",
+          id: name
+      %> 
+    <% else %>
+      <%= name %>
+    <% end %>
+    (<%= total %> missing)
+  </li>
+<% end %>
+</ul>

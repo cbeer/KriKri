@@ -6,5 +6,8 @@ Krikri::Engine.routes.draw do
   resources :institutions do
     resources :harvest_sources, shallow: true
   end
+
+  resources :validation_reports, only: [:index, :show]
+
   mount Resque::Server.new, at: '/resque'
 end

@@ -45,4 +45,43 @@ describe Krikri::IndexService do
       end
     end
   end
+
+  describe 'missing field reporting' do
+
+    context 'with invalid data' do
+      let(:aggregation) { build(:aggregation, dataProvider: nil) }
+
+      before do
+        Krikri::IndexService.add aggregation.to_jsonld['@graph'][0].to_json
+        Krikri::IndexService.commit
+      end
+
+      after do
+        q = 'id:*'
+        Krikri::IndexService.delete_by_query(q)
+        Krikri::IndexService.commit
+      end
+
+      describe '#missing_field_totals' do
+        it 'returns missing field totals for required fields' do
+          result = Krikri::IndexService.missing_field_totals(
+            ['dataProvider_name']
+          )
+          expect(result['dataProvider_name']).to eq 1
+        end
+      end
+
+      describe '#items_with_missing_field' do
+        it 'returns all docs with one or more missing field' do
+          result = Krikri::IndexService.items_with_missing_field(
+            'dataProvider_name'
+          )
+          expect(result.count).to eq 1
+        end
+      end
+
+    end
+
+  end
+
 end
