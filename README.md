@@ -32,11 +32,14 @@ Or you can start the dummy application with:
     cd spec/internal
     rails s
 
-To index a sample record into solr, from `/krikri/spec/internal`:
-    rake krikri:index_sample_data
+To index a sample aggregation into solr, from `/krikri/spec/internal`:
+    rake krikri:index_sample_aggregation
 
-To delete the sample record:
-    rake krikri:delete_sample_data
+To index an _invalid_ sample aggregation into solr:
+    rake krikri:index_invalid_aggregation
+
+To delete the sample aggregation:
+    rake krikri:delete_sample_aggregation
 
 To update/restart dummy application, from the root KriKri directory:
     git pull

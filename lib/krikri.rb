@@ -4,5 +4,5 @@ require 'blacklight'
 
 module Krikri
   # autoload libraries
-  autoload :IndexService,   'krikri/index_service'
+  autoload :IndexService,       'krikri/index_service'
 end
