@@ -6,4 +6,5 @@ require 'blacklight'
 module Krikri
   # autoload libraries
   autoload :IndexService,   'krikri/index_service'
+  autoload :RedisTest,      'krikri/redistest'
 end
