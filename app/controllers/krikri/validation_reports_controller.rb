@@ -6,6 +6,7 @@ module Krikri
   class ValidationReportsController < ApplicationController
 
     include Blacklight::Catalog
+    helper Blacklight::CatalogHelper
     #include Krikri::ValidationReport
 
     configure_blacklight do |config|
@@ -50,7 +51,12 @@ module Krikri
       config.add_show_field 'sourceResource_subject_name', :label => 'Subject'
       config.add_show_field('sourceResource_collection_title',
                             :label => 'Collection')
-    end
 
+      ##
+      # Set solr_document_model to SolrValidation Report instead of the default,
+      # which is SolrDocument.
+      config.solr_document_model = SolrValidationReport
+
+    end
   end
 end
