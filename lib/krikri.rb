@@ -5,11 +5,12 @@ require 'blacklight'
 
 module Krikri
   # autoload libraries
-  autoload :IndexService,   'krikri/index_service'
-  autoload :Mapper,         'krikri/mapper'
-  autoload :Mapping,        'krikri/mapping'
-  autoload :MappingDSL,     'krikri/mapping_dsl'
-  autoload :Parser,         'krikri/parser'
+  autoload :IndexService,     'krikri/index_service'
+  autoload :Mapper,           'krikri/mapper'
+  autoload :Mapping,          'krikri/mapping'
+  autoload :MappingDSL,       'krikri/mapping_dsl'
+  autoload :Parser,           'krikri/parser'
+  autoload :ValidationReport, 'krikri/validation_report'
 
   # parsers
   autoload :XmlParser,      'krikri/parsers/xml_parser'
