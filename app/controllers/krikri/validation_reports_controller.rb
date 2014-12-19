@@ -9,7 +9,6 @@ module Krikri
     include Blacklight::Catalog
     helper Blacklight::UrlHelperBehavior
     helper Blacklight::CatalogHelper
-    #include Krikri::ValidationReport
 
     configure_blacklight do |config|
 
@@ -39,6 +38,27 @@ module Krikri
       config.solr_document_model = SolrValidationReport
 
     end
+
+    # Override Blacklight::Catalog to add new functionality
+    # get search results from the solr index
+    # def index
+    #   (@response, @document_list) = get_search_results
+
+    #   respond_to do |format|
+    #     format.html { preferred_view }
+    #     format.rss  { render :layout => false }
+    #     format.atom { render :layout => false }
+    #     format.json do
+    #       render json: render_search_results_as_json
+    #     end
+
+    #     additional_response_formats(format)
+    #     document_export_formats(format)
+    #   end
+
+    #   # The following line differs from the original method.
+    #   @reports = missing_field_totals
+    # end
 
     # Override Blacklight::UrlHelperBehavior
     Blacklight::UrlHelperBehavior.class_eval do 
