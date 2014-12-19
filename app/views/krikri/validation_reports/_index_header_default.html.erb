@@ -11,5 +11,5 @@
          <span class="document-counter">
          <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
          </span>
-         <!--this is where the track_solr_document_path was-->
+         <%= link_to_document document, document_show_link_field(document), :counter => counter %>
         </h5>

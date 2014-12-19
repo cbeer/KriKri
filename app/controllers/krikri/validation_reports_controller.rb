@@ -5,7 +5,9 @@ require 'blacklight/catalog'
 module Krikri
   class ValidationReportsController < ApplicationController
 
+    include Blacklight::Controller
     include Blacklight::Catalog
+    helper Blacklight::BlacklightHelper
     helper Blacklight::CatalogHelper
     #include Krikri::ValidationReport
 
@@ -15,8 +17,7 @@ module Krikri
       # See also SolrHelper#solr_search_params.
       config.default_solr_params = {
         :qt => 'standard',
-        :rows => 10,
-        :q => "+id:[* TO *]-preview_id:[* TO *]"
+        :rows => 10
       }
 
       # solr field configuration for search results/index views
@@ -58,5 +59,28 @@ module Krikri
       config.solr_document_model = SolrValidationReport
 
     end
+
+    BlacklightHelper.class_eval do 
+      # Override method from Blacklight::UrlHelperBehavior
+      # Link each item to its catalog show view
+      def link_to_document(doc, field_or_opts = nil, opts={:counter => nil})
+        if field_or_opts.kind_of? Hash
+          opts = field_or_opts
+          if opts[:label]
+            Deprecation.warn self, "The second argument to link_to_document should now be the label."
+            field = opts.delete(:label)
+          end
+        else
+          field = field_or_opts
+        end
+
+        field ||= document_show_link_field(doc)
+        label = presenter(doc).render_document_index_label field, opts
+        # The following line is the only difference between this method and
+        # the original method
+        link_to label, '/catalog/' + doc.id
+      end
+    end
+
   end
 end
