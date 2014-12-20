@@ -3,5 +3,5 @@ Krikri::Engine.routes.draw do
   # have established what we do and don't need
   resources :harvest_sources
   resources :institutions
-  resources :validation_reports, only: [:index, :show]
+  resources :validation_reports, only: [:index]
 end
