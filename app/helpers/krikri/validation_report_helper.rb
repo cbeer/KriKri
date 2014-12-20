@@ -6,8 +6,7 @@ module Krikri
                  'sourceResource_type_id']
 
     def report_list
-      reports = missing_field_totals
-      #[{:name => 'hello', :count => 2}, {:name => 'moo', :count => 1}]
+      construct_report(missing_field_totals)
     end
 
     ##
@@ -20,21 +19,36 @@ module Krikri
         'facet.mincount' => 10000000,
         'facet.missing' => true
       }
+      Blacklight::SolrRepository.new(blacklight_config).search(solr_params)   
+    end
 
-      response = Blacklight::SolrRepository.new(blacklight_config)
-        .search(solr_params)
+    def construct_report(solr_response)
 
-      if response['facet_counts'] && 
-        fields = response['facet_counts']['facet_fields']
+      if solr_response['facet_counts'] && 
+        fields = solr_response['facet_counts']['facet_fields']
         # transform Hash of key-value pairs into Array of Hashes
         #   example: { "field_name"=>[nil,2] } is tranformed into
         #   [{ name: "field_name", count: 2 }]
         return fields.each_with_object([]) do |(key, value), array|
-          array << { name: key, count: value[1] }
+          array << { 
+            name: key, 
+            count: value[1],
+          }
         end
       end
 
       return nil
+    end
+
+    def report_link(report)
+      label = "#{report[:name]} (#{report[:count]})"
+
+      if report[:count] > 0
+        link_url = "validation_reports?q=-#{report[:name]}:[*%20TO%20*]"
+        return link_to label, link_url
+     end
+
+     return label
     end
 
   end
