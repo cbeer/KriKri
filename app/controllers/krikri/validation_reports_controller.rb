@@ -40,10 +40,6 @@ module Krikri
 
     end
 
-    def layout_name
-      "blacklight"
-    end
-
     # Override Blacklight::UrlHelperBehavior
     Blacklight::UrlHelperBehavior.class_eval do 
       
