@@ -1,6 +1,10 @@
 <h2>Validation Reports</h2>
-<ul>
-  <%- report_list.each do |report| %>
-    <li><%= report_link(report) %></li>
-  <% end %>
-</ul>
+<%- if report_list %>
+  <ul>
+    <%- report_list.each do |report| %>
+      <li><%= report_link(report) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <div>There was an error generating the validation reports.</div>
+<% end %>

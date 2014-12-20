@@ -19,16 +19,17 @@ module Krikri
         'facet.mincount' => 10000000,
         'facet.missing' => true
       }
-      Blacklight::SolrRepository.new(blacklight_config).search(solr_params)   
+      Blacklight::SolrRepository.new(blacklight_config).search(solr_params)  
     end
 
+    # transform Hash of key-value pairs into Array of Hashes
+    #   example: { "field_name"=>[nil,2] } is tranformed into
+    #   [{ name: "field_name", count: 2 }]
     def construct_report(solr_response)
 
-      if solr_response['facet_counts'] && 
+      if solr_response && solr_response['facet_counts'] && 
         fields = solr_response['facet_counts']['facet_fields']
-        # transform Hash of key-value pairs into Array of Hashes
-        #   example: { "field_name"=>[nil,2] } is tranformed into
-        #   [{ name: "field_name", count: 2 }]
+
         return fields.each_with_object([]) do |(key, value), array|
           array << { 
             name: key, 
@@ -46,7 +47,7 @@ module Krikri
       if report[:count] > 0
         link_url = "validation_reports?q=-#{report[:name]}:[*%20TO%20*]"
         return link_to label, link_url
-     end
+      end
 
      return label
     end
