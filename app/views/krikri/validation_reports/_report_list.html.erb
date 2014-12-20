@@ -1,6 +1,6 @@
 <h2>Validation Reports</h2>
 <ul>
   <%- report_list.each do |report| %>
-    <li><%= report[:name] %> (<%= report[:count] %>)
+    <li><%= report_link(report) %></li>
   <% end %>
 </ul>
