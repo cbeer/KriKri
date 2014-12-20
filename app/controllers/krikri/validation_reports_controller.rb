@@ -9,6 +9,7 @@ module Krikri
     include Blacklight::Catalog
     helper Blacklight::UrlHelperBehavior
     helper Blacklight::CatalogHelper
+    #helper Blacklight::ComponentHelper #needed for bookmarks
 
     configure_blacklight do |config|
 
@@ -37,6 +38,10 @@ module Krikri
       # which is SolrDocument.
       config.solr_document_model = SolrValidationReport
 
+    end
+
+    def layout_name
+      "blacklight"
     end
 
     # Override Blacklight::UrlHelperBehavior
