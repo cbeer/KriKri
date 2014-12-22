@@ -1,7 +1,11 @@
-<%- if report_list %>
+<% if report_list %>
   <ul>
-    <%- report_list.each do |report| %>
-      <li><%= report_link(report) %></li>
+    <% report_list.each do |report| %>
+      <% if report[:url] %>
+        <li><%= link_to report[:label], report[:url] %></li>
+      <% else %>
+        <li><%= report[:label] %></li>
+      <% end %>
     <% end %>
   </ul>
 <% else %>
