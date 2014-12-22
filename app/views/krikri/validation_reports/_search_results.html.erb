@@ -7,6 +7,9 @@
   <%= render "report_list" %>
 <%- else %>
   <h2>Validation Report: <%= params[:report_name] %></h2>
+  <div>
+    <%= link_to "All Validation Reports", validation_reports_path %>
+  </div>
   <%= render 'search_header' %>
   <%= render_document_index %>
 <%- end %>
