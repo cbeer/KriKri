@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 #
+require 'blacklight/controller'
 require 'blacklight/catalog'
 
 module Krikri
@@ -10,7 +11,6 @@ module Krikri
     helper Blacklight::UrlHelperBehavior
     helper Blacklight::CatalogHelper
     helper Blacklight::BlacklightHelperBehavior
-    #helper Blacklight::ComponentHelper #needed for bookmarks
 
     layout 'krikri/blacklight'
 
