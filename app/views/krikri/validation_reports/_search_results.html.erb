@@ -6,7 +6,7 @@
   <h2>Validation Reports</h2>
   <%= render "report_list" %>
 <%- else %>
-  <h2>Validation Report for <%= params[:report_name] %></h2>
+  <h2>Validation Report: <%= params[:report_name] %></h2>
   <%= render 'search_header' %>
   <%= render_document_index %>
 <%- end %>
