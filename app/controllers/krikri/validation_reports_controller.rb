@@ -9,7 +9,10 @@ module Krikri
     include Blacklight::Catalog
     helper Blacklight::UrlHelperBehavior
     helper Blacklight::CatalogHelper
+    helper Blacklight::BlacklightHelperBehavior
     #helper Blacklight::ComponentHelper #needed for bookmarks
+
+    layout 'krikri/blacklight'
 
     configure_blacklight do |config|
 

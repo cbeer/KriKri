@@ -2,11 +2,12 @@
 
 <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
 
-<%= render 'search_header' %>
-
 <%- if @response.empty? %>
+  <h2>Validation Reports</h2>
   <%= render "report_list" %>
 <%- else %>
+  <h2>Validation Report for <%= params[:report_name] %></h2>
+  <%= render 'search_header' %>
   <%= render_document_index %>
 <%- end %>
 
