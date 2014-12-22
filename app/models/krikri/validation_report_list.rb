@@ -41,13 +41,15 @@ module Krikri
     end
 
     # Construct a link and display label for a validation report
+    # The param 'report_name' in the constructed link is not used by Solr 
+    #  - it is for display purposes only
     # @param: String, int
     # @return: Hash
     def report_link(name, count)
       link = { :label => "#{name} (#{count})" }
 
       if count > 0
-        link[:url] = "validation_reports?q=-#{name}:[*%20TO%20*]"
+        link[:url] = "validation_reports?q=-#{name}:[*%20TO%20*]&report_name=#{name}"
       end
 
      return link
