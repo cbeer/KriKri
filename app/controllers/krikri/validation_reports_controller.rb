@@ -4,8 +4,9 @@ require 'blacklight/controller'
 require 'blacklight/catalog'
 
 module Krikri
+  # Marshals SolrValidationReports for views
+  # Sets default Solr request params for Validation Reports
   class ValidationReportsController < ApplicationController
-
     include Blacklight::Controller
     include Blacklight::Catalog
     helper Blacklight::UrlHelperBehavior
@@ -44,15 +45,16 @@ module Krikri
     end
 
     # Override Blacklight::UrlHelperBehavior
-    Blacklight::UrlHelperBehavior.class_eval do 
-      
+    # TODO: Investigate possibility of setting config.show.route instead
+    Blacklight::UrlHelperBehavior.class_eval do
       # Create a link to a document's catalog show view.
       # The link does not include session tracking params.
-      def link_to_document(doc, field_or_opts = nil, opts={:counter => nil})
+      def link_to_document(doc, field_or_opts = nil, opts = { :counter => nil })
         if field_or_opts.kind_of? Hash
           opts = field_or_opts
           if opts[:label]
-            Deprecation.warn self, "The second argument to link_to_document should now be the label."
+            Deprecation.warn self, 'The second argument to link_to_document' /
+              ' should now be the label.'
             field = opts.delete(:label)
           end
         else
@@ -65,6 +67,5 @@ module Krikri
         link_to label, '/catalog/' + doc.id
       end
     end
-
   end
 end

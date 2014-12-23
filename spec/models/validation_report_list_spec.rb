@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Krikri::ValidationReportList do 
+describe Krikri::ValidationReportList do
 
   let(:blacklight_config) { {} }
   let(:mock_response) { {} }
@@ -9,42 +9,40 @@ describe Krikri::ValidationReportList do
     Krikri::ValidationReportList.new(blacklight_config)
   end
 
-  describe "#report_list" do
+  describe '#report_list' do
 
     before(:each) do
       solr_repository = object_double(
-          Blacklight::SolrRepository.new(blacklight_config), 
+          Blacklight::SolrRepository.new(blacklight_config),
           :search => mock_response
         )
       Blacklight::SolrRepository.stub(:new).with(blacklight_config)
         .and_return(solr_repository)
     end
 
-    context "valid results from search engine" do
+    context 'valid results from search engine' do
 
-      it "returns list of report names and link" do
-        mock_response['facet_counts'] = { 
-          'facet_fields' => { 
+      it 'returns list of report names and link' do
+        mock_response['facet_counts'] = {
+          'facet_fields' => {
             'dataProvider_name' => [nil, 2]
           }
         }
         expected_report_list = [{
           :label => 'dataProvider_name (2)',
-          :url => 'validation_reports?q=-dataProvider_name:[*%20TO%20*]&report_name=dataProvider_name'
+          :url => 'validation_reports?q=-dataProvider_name:[*%20TO%20*]' \
+                  '&report_name=dataProvider_name'
         }]
         expect(subject.report_list).to eq(expected_report_list)
       end
 
     end
 
-    context "invalid results from search engine" do
+    context 'invalid results from search engine' do
 
-      it "returns nil" do
+      it 'returns nil' do
         expect(subject.report_list).to eq(nil)
       end
-
     end
-
   end
-
 end
