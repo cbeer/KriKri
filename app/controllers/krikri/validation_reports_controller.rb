@@ -9,7 +9,7 @@ module Krikri
     include Blacklight::Controller
     include Blacklight::Catalog
     helper Blacklight::UrlHelperBehavior
-    helper Blacklight::CatalogHelper
+    helper Blacklight::CatalogHelperBehavior
     helper Blacklight::BlacklightHelperBehavior
 
     layout 'krikri/blacklight'
