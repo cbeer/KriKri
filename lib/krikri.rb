@@ -13,6 +13,6 @@ module Krikri
   autoload :ValidationReport, 'krikri/validation_report'
 
   # parsers
-  autoload :XmlParser,      'krikri/parsers/xml_parser'
-  autoload :OaiDcParser,    'krikri/parsers/oai_dc_parser'
+  autoload :XmlParser,        'krikri/parsers/xml_parser'
+  autoload :OaiDcParser,      'krikri/parsers/oai_dc_parser'
 end
