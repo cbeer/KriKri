@@ -1,4 +1,5 @@
 module Krikri
+  # Helper methods for Validation Reports
   module ValidationReportHelper
 
     def report_list

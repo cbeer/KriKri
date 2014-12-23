@@ -45,5 +45,4 @@ describe Krikri::IndexService do
       end
     end
   end
-
 end
