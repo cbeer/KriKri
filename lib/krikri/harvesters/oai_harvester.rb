@@ -55,6 +55,31 @@ module Krikri::Harvesters
       end
     end
 
+    ##
+    # @see Krikri::Harvester#run
+    #
+    # An OAI Harvester may have one or more sets.
+    # If there is no :set property in @opts then it will be run on every
+    # record.  If the :set property exists, only the specified sets will be
+    # harvested.
+    #
+    # This will run all sets serially, which is the safe approach.  If parallel
+    # operation is necessary, SoftwareAgent#enqueue can be overridden in this
+    # class to loop through the sets and enqueue a separate job for each.
+    #
+    def run
+      log :info, 'harvest is running'
+      if ! sets
+        records.each(&:save)
+      else
+        sets.each do |set|
+          records({set: set}).each(&:save)
+        end
+      end
+      log :info, 'harvest is done'
+      true
+    end
+
     # TODO: normalize records; there will be differences in XML
     # for different requests
     def get_record(identifier, opts = {})
@@ -75,6 +100,14 @@ module Krikri::Harvesters
           metadata_prefix: {type: :string, required: true}
         }
       }
+    end
+
+    private
+
+    def sets
+      nil if ! @opts.include?(:set) or @opts[:set].empty?
+      nil if ! @opts[:set].class == Array or @opts[:set].class == String
+      Array(@opts[:set])
     end
 
   end
