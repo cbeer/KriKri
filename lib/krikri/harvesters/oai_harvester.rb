@@ -69,7 +69,7 @@ module Krikri::Harvesters
     #
     def run
       log :info, 'harvest is running'
-      if ! sets
+      if sets.empty?
         records.each(&:save)
       else
         sets.each do |set|
