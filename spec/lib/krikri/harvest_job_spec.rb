@@ -4,7 +4,8 @@ describe Krikri::HarvestJob do
   let(:activity) { create(:krikri_activity) }
   describe '#perform' do
     before do
-      expect_any_instance_of(Krikri::Harvester)
+      # The Activity created above is for an OAIHarvester, so:
+      expect_any_instance_of(Krikri::Harvesters::OAIHarvester)
         .to receive(:run)
         .and_return(true)
     end
