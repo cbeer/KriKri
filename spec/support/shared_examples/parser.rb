@@ -10,6 +10,23 @@ shared_examples_for 'a parser' do
   end
 end
 
+shared_examples_for 'an oai parser' do
+  let(:parser) { subject || described_class.new(record) }
+
+  it_behaves_like 'a parser'
+
+  it 'has a header' do
+    expect(parser.header).to be_a Krikri::Parser::Value
+  end
+
+  it 'has header properties' do
+    expect(parser.header.children).to contain_exactly('oai:identifier',
+                                                      'oai:datestamp',
+                                                      'oai:setSpec',
+                                                      'oai:setSpec')
+  end
+end
+
 shared_examples_for 'a parser value' do
   let(:value) { subject || described_class.new }
   let(:child) { value.children.first }

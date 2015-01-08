@@ -4,10 +4,11 @@ require "krikri/engine"
 require 'blacklight'
 
 module Krikri
-  # autoload Krikri::XMLParser
+  # Parsers
   autoload :XmlParser,      'krikri/parsers/xml_parser'
-  # autoload Krikri::OaiDcParser
+  autoload :OaiParser,      'krikri/parsers/oai_parser'
   autoload :OaiDcParser,    'krikri/parsers/oai_dc_parser'
+  autoload :ModsParser,     'krikri/parsers/oai_dc_parser'
   autoload :JsonParser,     'krikri/parsers/json_parser'
   autoload :ModsParser,     'krikri/parsers/mods_parser'
 
