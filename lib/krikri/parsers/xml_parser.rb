@@ -3,9 +3,9 @@ module Krikri
   # An XmlParser
   # @see Krikri::Parser
   class XmlParser < Krikri::Parser
-    def initialize(record, root_path = '/')
+    def initialize(record, root_path = '/', ns = {})
       xml = Nokogiri::XML(record.to_s)
-      ns = namespaces_from_xml(xml)
+      ns = namespaces_from_xml(xml).merge(ns)
       @root = Value.new(xml.at_xpath(root_path, ns), ns)
       super(record)
     end
