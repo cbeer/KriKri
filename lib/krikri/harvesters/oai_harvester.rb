@@ -16,8 +16,8 @@ module Krikri::Harvesters
       @opts = opts.fetch(:oai, {})
 
       http_conn = Faraday.new do |conn|
-        conn.request :retry, :max => 3
-        conn.response :follow_redirects, :limit => 5
+        conn.request :retry, max: 12, interval: 0.025, backoff_factor: 2
+        conn.response :follow_redirects, limit: 5
         conn.adapter :net_http
       end
 
